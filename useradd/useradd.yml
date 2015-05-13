@@ -1,0 +1,35 @@
+---
+- hosts: all
+
+  vars_prompt:
+  - name: "new_username"
+    prompt: "Enter the username for the new user?"
+    private: no
+
+  - name: "new_fullname"
+    prompt: "Enter the full name for the new user?"
+    private: no
+
+  - name: "new_uid"
+    prompt: "Enter the UID for the new user?"
+    private: no
+
+  - name: "new_password"
+    prompt: "Enter the password for the new user?"
+    private: yes
+    encrypt: "sha512_crypt"
+    confirm: yes
+    salt_size: 7
+
+  - name: "new_addgroups"
+    prompt: "Enter any additional group(s) the user should be a member of (comma seperated)?"
+    private: no
+
+  tasks:
+    - name: Add User
+      user: name="{{new_username}}" uid="{{new_uid}}" home="/home/{{new_username}}" comment="{{new_fullname}}" shell="/bin/bash" state="present" password="{{new_password}}" groups="{{new_addgroups}}" append=yes
+      sudo: yes
+    
+    - name: Expire Password
+      command: chage -d 0 "{{new_username}}"
+      sudo: yes

@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+if [[ -z "${ANSIBLE_REMOTE_USER}" ]]; then
+	echo "Enter the SSH user (with sudo privileges) to use?"
+	read sshuser
+	export ANSIBLE_REMOTE_USER=${sshuser}
+fi
+export ANSIBLE_HOSTS=${PWD}/hosts
+ansible-playbook useradd.yml -Kk

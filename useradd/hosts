@@ -1,0 +1,13 @@
+[all]
+#examplehost1.domain.local
+#examplehost2.domain.local
+#examplehost3.domain.local
+
+[example1]
+#examplehost1.domain.local
+
+[example2]
+#examplehost2.domain.local
+
+[example3]
+#examplehost3.domain.local
